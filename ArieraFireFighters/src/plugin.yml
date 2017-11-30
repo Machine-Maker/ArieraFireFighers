@@ -1,0 +1,19 @@
+main: me.x1machinemaker1x.arierafirefighters.ArieraFireFighters
+name: ArieraFireFighters
+version: 1.0
+author: X1machinemaker1X
+
+commands:
+  gascan:
+    default: true
+    aliases: [gc]
+  lighter:
+    default: true
+    aliases: [lt]
+  extinguisher:
+    default: false
+    aliases: [ex]
+    
+permissions:
+  aff.arsonist:
+    default: true

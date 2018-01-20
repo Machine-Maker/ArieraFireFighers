@@ -2,6 +2,7 @@ package me.x1machinemaker1x.arierafirefighters;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import me.x1machinemaker1x.arierafirefighters.cmds.Extinguisher;
 import me.x1machinemaker1x.arierafirefighters.cmds.GasCan;
 import me.x1machinemaker1x.arierafirefighters.cmds.Lighter;
 import me.x1machinemaker1x.arierafirefighters.events.PlayerInteract;
@@ -18,6 +19,7 @@ public class ArieraFireFighters extends JavaPlugin {
 		Messages.setup(this);
 		getCommand("gascan").setExecutor(new GasCan());
 		getCommand("lighter").setExecutor(new Lighter());
+		getCommand("extinguisher").setExecutor(new Extinguisher());
 		
 		this.getServer().getPluginManager().registerEvents(new PlayerInteract(), this);
 		

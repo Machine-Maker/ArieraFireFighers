@@ -13,7 +13,9 @@ public enum Messages {
 	NOT_PLAYER("not-player", "&cYou must be a player to use that command!"),
 	NO_PERMISSION("no-permission", "&cYou do not have permission!"),
 	ALREADY_HAVE_GC("already-have-gc", "&cYou already have a gas can!"),
-	ALREADY_HAVE_LT("already-have-lt", "&cYou already have a lighter!");
+	ALREADY_HAVE_LT("already-have-lt", "&cYou already have a lighter!"),
+	ALREADY_HAVE_EX("already-have-ex", "&cYou already have an extinguisher"),
+	FIRE_STARTED("fire-started", "&aA &cFIRE &ahas started at &9%location%&a!");
 	
 	String path;
 	String message;

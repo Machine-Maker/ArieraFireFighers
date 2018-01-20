@@ -12,8 +12,11 @@ commands:
     aliases: [lt]
   extinguisher:
     default: false
-    aliases: [ex]
     
 permissions:
   aff.arsonist:
     default: true
+  aff.firefighter:
+    default: false
+  aff.police:
+    default: false

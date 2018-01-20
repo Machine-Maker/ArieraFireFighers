@@ -3,6 +3,7 @@ package me.x1machinemaker1x.arierafirefighters.events;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
@@ -10,7 +11,9 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -18,12 +21,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import me.x1machinemaker1x.arierafirefighters.objects.Gas;
 import me.x1machinemaker1x.arierafirefighters.utils.GasManager;
+import me.x1machinemaker1x.arierafirefighters.utils.Messages;
 import net.minecraft.server.v1_12_R1.NBTTagCompound;
 
 public class PlayerInteract implements Listener {
 	
 	@SuppressWarnings("deprecation")
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		if (e.getAction() != Action.RIGHT_CLICK_BLOCK && e.getAction() != Action.RIGHT_CLICK_AIR) return;
 		if (e.getItem() == null) return;
@@ -52,6 +56,7 @@ public class PlayerInteract implements Listener {
 			}
 			else if (tag.hasKey("lighter")) {
 				if (tag.getBoolean("lighter")) {
+					if (e.getClickedBlock() == null) return;
 					Location clickedLoc = e.getClickedBlock().getLocation();
 					Gas gas = GasManager.getInstance().getGas(clickedLoc);
 					if (gas == null) return;
@@ -65,6 +70,23 @@ public class PlayerInteract implements Listener {
 						if (oGas != null) {
 							oGas.getLoc().getBlock().setType(Material.FIRE);
 						}
+					}
+					for (Player p : Bukkit.getOnlinePlayers()) {
+						if (p.hasPermission("aff.firefighter") || p.hasPermission("aff.police")) {
+							p.sendMessage(Messages.FIRE_STARTED.toString().replace("%location%", 
+									"X: " + clickedLoc.getBlockX() +
+									" Y: " + clickedLoc.getBlockY() +
+									" Z: " + clickedLoc.getBlockZ()
+									));
+						}
+					}
+				}
+			}
+			else if (tag.hasKey("extinguisher")) {
+				if (tag.getBoolean("extinguisher")) {
+					if (e.getClickedBlock() == null) return;
+					if (e.getClickedBlock().getLocation().add(0, 1, 0).getBlock().getType() == Material.FIRE) {
+						e.getClickedBlock().getLocation().add(0, 1, 0).getBlock().setType(Material.AIR);
 					}
 				}
 			}
